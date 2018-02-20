@@ -17,7 +17,7 @@ class Simulation extends Entity {
 
         this.startingResourcesAvailable = 500; //generic "resource" count that represents food for bacteria to grow
 
-        this.temperature = 50; //in degrees Fahrenheit
+        this.temperature = 60; //in degrees Fahrenheit
 
         this.splitChanceReduceCount = 0;
         this.reductionSinceLastTempChange = 0;
@@ -62,13 +62,12 @@ class Simulation extends Entity {
                     && this.currentResourcesAvailable > 0 && splitChance > 0) {
                     this.bacteriaSplit(this.bacteria[i]);
                     this.hasSplit = true;
-                    //this.currentResourcesAvailable--;
                 }
                 if (this.currentResourcesAvailable > 0) {
                     this.currentResourcesAvailable--;
                     this.splitChanceReduceCount++;
                     if (this.splitChanceReduceCount % 10 === 0) {
-                        this.splittingChance -= 2;
+                        this.splittingChance -= 3;
                         this.reductionSinceLastTempChange += 2;
                     }
                 }
@@ -89,10 +88,6 @@ class Simulation extends Entity {
     }
 
     bacteriaSplit (parent) {
-        /*let child1Pos = this.calculateChildPosParams(parent, 1);
-        let child2Pos = this.calculateChildPosParams(parent, 2);*/
-
-
         let child1 = this.makeABacteria(this.game.maxWidth, this.game.minWidth,
             this.game.maxHeight, this.game.minHeight, 1, 1, 1, 1, parent.parentVariation+5, parent.color);
 
@@ -101,130 +96,13 @@ class Simulation extends Entity {
 
         this.game.addEntity(child1);
         this.bacteria.push(child1);
-        //this.checkForCollision(child1);
 
         this.game.addEntity(child2);
         this.bacteria.push(child2);
-        //this.checkForCollision(child2);
 
         this.killParent(parent);
     }
 
-    /**
-     * Using the parent's position against a wall to influence the next position to go to.
-     * @param parent
-     * @param childType
-     * @returns {{maxX: *, minX: *, maxY: *, minY: *}}
-     */
-    calculateChildPosParams (parent, childType) {
-        let maxX;
-        let minX;
-        let maxY;
-        let minY;
-
-        if (!parent.isAgainstWallOnX) {
-            if (childType === 1) {
-                maxX = (parent.x + parent.width) * 2;
-                minX = parent.x;
-            } else {
-                maxX = parent.x;
-                minX = (parent.x - parent.width) * 2;
-            }
-        } else {
-            let rightSide = parent.x + parent.width >= this.game.surfaceWidth;
-            if (rightSide) {
-                console.log("parent hit right wall");
-                maxX = parent.x - parent.width * 2;
-                minX = (parent.x - parent.width);
-            } else {
-                console.log("parent hit left wall");
-                maxX = parent.x + parent.width * 2;
-                minX = (parent.x + parent.width);
-            }
-            console.log("parent's pos: (" + parent.x + ", " + parent.y + ")");
-        }
-
-        if (!parent.isAgainstWallOnY) {
-            if (childType === 1) {
-                maxY = (parent.y + parent.height) * 2;
-                minY = parent.y;
-            } else {
-                maxY = parent.y;
-                minY = (parent.y - parent.height) * 2;
-            }
-        } else {
-            let bottomSide = parent.y + parent.height >= this.game.surfaceHeight;
-            if (bottomSide) {
-                console.log("parent hit bottom wall");
-                maxY = parent.y - parent.height * 2;
-                minY = (parent.y - parent.height);
-            } else {
-                console.log("parent hit top wall");
-                maxY = parent.y + parent.height * 2;
-                minY = (parent.y + parent.height);
-            }
-        }
-
-        return {maxX: maxX, minX: minX, maxY: maxY, minY: minY};
-    }
-
-
-    /**
-     * The original
-     * @param parent
-     * @param childType
-     * @returns {{maxX: number, minX, maxY: number, minY}}
-     */
-    calculateChildPosParams2 (parent, childType) {
-        let maxX = (parent.x + parent.width) * 2;
-        let minX = parent.x;
-        let maxY = (parent.y + parent.height) * 2;
-        let minY = parent.y;
-
-        return {maxX: maxX, minX: minX, maxY: maxY, minY: minY};
-    }
-
-    calculateChildPosParams3 (parent, childType) {
-        let maxX;
-        let minX;
-        let maxY;
-        let minY;
-
-        if (!parent.isAgainstWallOnX) {
-                maxX = parent.x + (parent.width * 2);
-                minX = parent.x;
-        } else {
-            let rightSide = (parent.x + parent.width + 20 >= this.game.surfaceWidth);
-            if (rightSide) {
-                console.log("parent hit right wall");
-                maxX = parent.x - (parent.width * 2);
-                minX = (parent.x - parent.width);
-            } else {
-                console.log("parent hit left wall");
-                maxX = parent.x + (parent.width * 2);
-                minX = (parent.x + parent.width);
-            }
-            console.log("parent's pos: (" + parent.x + ", " + parent.y + ")");
-        }
-
-        if (!parent.isAgainstWallOnY) {
-                maxY = parent.y + (parent.height * 2);
-                minY = parent.y;
-        } else {
-            let bottomSide = (parent.y + parent.height + 20 >= this.game.surfaceHeight);
-            if (bottomSide) {
-                console.log("parent hit bottom wall");
-                maxY = parent.y - (parent.height * 2);
-                minY = (parent.y - parent.height);
-            } else {
-                console.log("parent hit top wall");
-                maxY = parent.y + (parent.height * 2);
-                minY = (parent.y + parent.height);
-            }
-        }
-
-        return {maxX: maxX, minX: minX, maxY: maxY, minY: minY};
-    }
 
     killParent (parent) {
         parent.removal = true;
@@ -270,18 +148,6 @@ class Simulation extends Entity {
         return bacteria;
     }
 
-    checkForCollision(bacteria) {
-        let count = 0;
-        while (Entity.hasCollided(bacteria, this.bacteria) && count < this.bacteria.length) {
-            let newPos = this.getPosition(bacteria.width, bacteria.height, bacteria.x + bacteria.width,
-                bacteria.x - bacteria.width, bacteria.y + bacteria.height, bacteria.y - bacteria.height);
-            bacteria.x = newPos.x;
-            bacteria.y = newPos.y;
-            count++;
-        }
-
-        //console.log("count is " + count);
-    }
 
     getPosition (width, height, maxX, minX, maxY, minY) {
         let x = (Math.random() * maxX) + 1;

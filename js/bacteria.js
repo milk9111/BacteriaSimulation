@@ -25,7 +25,7 @@ class Bacteria extends Entity {
         this.yGrowStep = 0.5;
         this.finalYGrowStep = (Math.random() * this.yGrowStep) + this.minGrow;
 
-        this.maxDeathTimer = this.simulation.splittingChance;
+        this.maxDeathTimer = this.simulation.splittingChance + (0.5 * this.simulation.splittingChance);
         this.minDeathTimer = this.maxDeathTimer / 2;
         this.deathTimer = (Math.random() * this.maxDeathTimer) + 1;
         if (this.deathTimer < this.minDeathTimer) {
