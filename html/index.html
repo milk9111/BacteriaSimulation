@@ -1,0 +1,57 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simulation</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <!--CDN Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/entity.js"></script>
+    <script type="text/javascript" src="../js/gameengine.js"></script>
+    <script type="text/javascript" src="../js/assetmanager.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/bacteria.js"></script>
+    <script type="text/javascript" src="../js/simulation.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm-6 col-md-6 col-lg-6">
+                <canvas id="gameWorld" tabindex="1" width="800" height="780"></canvas>
+            </div>
+            <div class="col col-sm-3 col-md-3 col-lg-3">
+                <div class="container">
+                    <h4>Minutes since last split: <span id="minutes"></span></h4>
+                    <h4>Number of living bacteria: <span id="bacteriaCount"></span></h4>
+                    <h4>Number of generations: <span id="genCount"></span></h4>
+                    <h4>Number of dead bacteria: <span id="deadCount"></span></h4>
+                    <h4>Remaining resources: <span id="resourceCount"></span></h4>
+                </div>
+                    <div class="container">
+                        <h4>Temperature
+                            <button type="button" class="btn btn-default" onmousedown="changeTemp('down')"> < </button>
+                            <span id="temp"></span>
+                            <button type="button" class="btn btn-default" onmousedown="changeTemp('up')"> > </button>
+                        </h4>
+                    </div>
+                <div class="container">
+                    <button type="button" class="btn" id="pause" onclick="buttonClick($('#pause').text())">Pause</button>
+                    <button type="button" class="btn" id="step" onclick="startStep()" disabled>Step</button>
+                    <button type="button" class="btn" id="restart" onclick="restart()">Restart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
