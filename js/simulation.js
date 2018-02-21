@@ -13,6 +13,7 @@ class Simulation extends Entity {
         this.genCount = 1;
 
         this.minutes = 0;
+        this.minutesUntilSplit = 4;
         this.currentStep = 0;
 
         this.startingResourcesAvailable = 500; //generic "resource" count that represents food for bacteria to grow
@@ -51,12 +52,11 @@ class Simulation extends Entity {
     }
 
     update () {
-        if (this.minutes >= 4 || this.game.isStepping) {
+        if (this.minutes >= this.minutesUntilSplit || this.game.isStepping) {
             this.minutes = 0;
             this.hasSplit = false;
             let bacteriaCount = this.bacteria.length;
             for (let i = 0; i < bacteriaCount; i++) {
-                console.log(this.temperature + ", " + this.splittingChance);
                 let splitChance = (Math.random() * this.splittingChance);
                 if (splitChance <= this.currentResourcesAvailable
                     && this.currentResourcesAvailable > 0 && splitChance > 0) {

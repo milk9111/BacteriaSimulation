@@ -6,7 +6,6 @@ class Bacteria extends Entity {
 
         this.game = game;
         this.simulation = simulation;
-        //this.simulation = simulation;
 
         this.originalWidth = width;
         this.originalHeight = height;
@@ -25,7 +24,7 @@ class Bacteria extends Entity {
         this.yGrowStep = 0.5;
         this.finalYGrowStep = (Math.random() * this.yGrowStep) + this.minGrow;
 
-        this.maxDeathTimer = this.simulation.splittingChance + (0.5 * this.simulation.splittingChance);
+        this.maxDeathTimer = this.simulation.splittingChance + ((this.simulation.minutesUntilSplit / 2) * this.simulation.splittingChance);
         this.minDeathTimer = this.maxDeathTimer / 2;
         this.deathTimer = (Math.random() * this.maxDeathTimer) + 1;
         if (this.deathTimer < this.minDeathTimer) {
@@ -33,9 +32,6 @@ class Bacteria extends Entity {
         }
 
         this.isDead = false;
-
-        this.isAgainstWallOnX = false;
-        this.isAgainstWallOnY = false;
 
         function random_rgba() {
             let o = Math.round, r = Math.random, s = 255;
@@ -73,7 +69,6 @@ class Bacteria extends Entity {
             ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.restore();
         }
-        //Entity.prototype.draw.call(this);
     }
 
     adjustSize () {

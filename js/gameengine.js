@@ -60,6 +60,7 @@ class GameEngine {
         this.resourceCountLabel = null;
         this.deadCountLabel = null;
         this.tempLabel = null;
+        this.resourceInput = null;
     }
 
     beginSimulation () {
@@ -87,8 +88,6 @@ class GameEngine {
         this.resourceCountLabel = document.getElementById("resourceCount");
         this.deadCountLabel = document.getElementById("deadCount");
         this.tempLabel = document.getElementById("temp");
-
-        console.log('simulation initialized');
     }
 
 
@@ -182,7 +181,6 @@ class GameEngine {
     }
 
     restart () {
-        console.log("Restarting");
         this.timer.gameTime = 0;
         this.timer.maxStep = 0.05;
         this.timer.wallLastTimestamp = 0;
@@ -191,7 +189,6 @@ class GameEngine {
         this.simulation.setupSimulation();
         this.simulation.temperature = parseInt($("#temp").text());
         this.simulation.splittingChance = this.simulation.adjustSplittingChance();
-        console.log(this.simulation.temperature);
     }
 
     /**

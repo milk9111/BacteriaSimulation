@@ -46,6 +46,77 @@
                     <button type="button" class="btn" id="step" onclick="startStep()" disabled>Step</button>
                     <button type="button" class="btn" id="restart" onclick="restart()">Restart</button>
                 </div>
+                <br>
+                <div class="container">
+                    <form>
+                        <div class="form-group">
+                            <label for="startingResources">Change starting resources (restarts simulation): </label>
+                            <input type="text" id="startingResources" class="form-control" style="width:25%;">
+                            <button type="button" class="btn btn-default" onclick="changeStartingResources()">Reset</button>
+                        </div>
+                    </form>
+                    <form>
+                        <div class="form-group">
+                            <label for="minutesUntilSplit">Change minutes until split (restarts simulation): </label>
+                            <input type="text" id="minutesUntilSplit" class="form-control" style="width:25%;">
+                            <button type="button" class="btn btn-default" onclick="changeMinutesUntilSplit()">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col col-sm-3 col-md-3 col-lg-3">
+                <h3>Description</h3>
+                <p>
+                    The purpose of this simulation is to show the growth of bacteria in different environments. Given lower temperatures
+                    the bacteria will have longer life spans, but their chance of consuming a "resource" and splitting is much smaller.
+                    The opposite is true for higher temperatures. Each split will create a new generation that keeps the color from the
+                    parent, but adds a variation value to it. That's why some of the bacteria will begin to change colors as the simulation
+                    goes on. This simulation represents the four phases of bacteria growth:
+                </p>
+                <br>
+                <ol>
+                    <li>
+                        <ul>Lag phase
+                            <li>The bacteria count is small and slow to start</li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li>
+                        <ul>Exponential phase
+                            <li>The bacteria growth rate is exponential</li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li>
+                        <ul>Stagnant phase
+                            <li>The bacteria growth rate levels out due to scarceness of resources</li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li>
+                        <ul>Death phase
+                            <li>The bacteria count begins to drop because of the lack of resources to continue splitting</li>
+                        </ul>
+                    </li>
+                </ol>
+                <br>
+                <p>
+                    Adjusting the starting resource value to increase or decrease the total number of bacteria.
+                </p>
+                <br>
+                <p>
+                    Adjusting the minutes will also increase the lifespan of the bacteria, but only so the simulation will still function.
+                </p>
+                <br>
+                <p>
+                    <strong>Caution: This simulation does not limit the values in any way except to keep any non-numbers from being inputted.
+                    Because of this there could be a serious lag at higher bacteria counts for weak computers.</strong>
+                </p>
+                <br><br>
+                <p>
+                    &emsp;&emsp;- Created by Connor Lundberg
+                </p>
+            </div>
             </div>
         </div>
     </div>
